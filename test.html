@@ -1,0 +1,897 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>My Task</title>
+    <!--<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+            integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css" />
+    <style type="text/css">
+
+        .tblstyle {
+            width: 100%;
+            border: 1px solid black;
+        }
+
+        .header {
+            font-weight: bold;
+            background: #cccccc8f;
+        }
+
+        .footer {
+            font-weight: bold;
+            text-align: center;
+            background: #cccccc8f;
+        }
+
+        .total-col {
+            width: 50px;
+            text-align: center;
+            background: #cccccc8f;
+            font-weight: bold;
+        }
+
+
+        .datarow {
+            color: black;
+        }
+
+            .datarow td:hover {
+                background: #ccc;
+                cursor: pointer;
+            }
+
+
+        .col-1 {
+            width: 100%;
+            float: left;
+        }
+
+        .col-2 {
+            width: 50%;
+            float: left;
+        }
+
+        .col-3 {
+            width: 33.33%;
+            float: left;
+        }
+
+        .col-4 {
+            width: 25%;
+            float: left;
+        }
+
+        .col-5 {
+            width: 20%;
+            float: left;
+        }
+
+        .row {
+            width: 100%;
+        }
+
+        .aligncenter {
+            text-align: center;
+        }
+
+        .inputstyle {
+            width: auto;
+            padding: 5px 10px;
+            line-height: 1.5;
+        }
+
+        .rowinput {
+            width: 94%;
+            padding: 5px 5px;
+            border: none;
+            outline: 0;
+            line-height: 1.5;
+        }
+
+        .timeinput {
+            width: 100px;
+            padding: 5px 10px;
+            font-weight: bold;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            outline: 0;
+            line-height: 1.5;
+        }
+
+        .selectstyle {
+            width: 100px;
+            padding: 5px 10px;
+            font-weight: bold;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            outline: 0;
+            line-height: 1.5;
+        }
+
+        .fullwidth {
+            width: 90%;
+            text-align: left;
+        }
+
+        .buttonstyle {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            background: #038fce;
+            color: white;
+        }
+
+            .buttonstyle:hover {
+                -webkit-filter: none;
+                filter: none;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            }
+
+        .buttonstyle-delete {
+            background: red;
+        }
+
+        .cancelbutton {
+            background: white;
+            color: #038fce;
+        }
+
+            .cancelbutton:hover {
+                text-decoration: underline;
+                -webkit-filter: none;
+                filter: none;
+                box-shadow: none;
+            }
+
+        .errorStyle {
+            border: 1px solid red;
+        }
+
+        .tasktime {
+            text-align: center;
+        }
+
+        .hourminuteddlstyle {
+            text-align: left;
+            padding: 8px 10px;
+            width: 60px;
+        }
+    </style>
+    <style type="text/css">
+        h2 {
+            margin: 6px 0px;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 15px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            position: relative;
+            background-color: #fefefe;
+            margin: auto;
+            padding: 0;
+            border: 1px solid #888;
+            width: 50%;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+            -webkit-animation-name: animatetop;
+            -webkit-animation-duration: 0.4s;
+            animation-name: animatetop;
+            animation-duration: 0.4s
+        }
+
+        /* Add Animation */
+        @-webkit-keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        @keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        /* The Close Button */
+        .close {
+            color: black;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            margin-top: 4px;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+        .modal-header {
+            padding: 2px 16px;
+            border-bottom: 1px solid grey;
+            /* background-color: grey;
+            color: white;*/
+        }
+
+        .modal-body {
+            padding: 2px 16px;
+        }
+
+        .modal-footer {
+            padding: 12px 16px;
+            border-top: 1px solid grey;
+        }
+
+        .deleterow .close {
+            float: none;
+        }
+
+        .deleterow {
+            text-align: center;
+        }
+    </style>
+    <style type="text/css">
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 20px;
+        }
+
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 14px;
+                width: 14px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                -webkit-transition: .4s;
+                transition: .4s;
+            }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+            .slider.round:before {
+                border-radius: 50%;
+            }
+    </style>
+
+    <style type="text/css">
+        .dateStyle {
+            border: 1px solid #ccc;
+            padding: 5px 15px;
+            width: 150px;
+            line-height: 30px;
+            font-weight: bold;
+            font-size: 18px;
+            text-align: left;
+            border-radius: 4px;
+        }
+
+            .dateStyle:hover {
+                background: #ccc;
+                cursor: pointer;
+                color: black;
+                border: 1px solid black;
+            }
+
+        .prev-next {
+            border: 1px solid #ccc;
+            padding: 5px 15px;
+            width: 10px;
+            line-height: 30px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 4px;
+        }
+
+            .prev-next:hover {
+                background: #ccc;
+                cursor: pointer;
+                color: black;
+                border: 1px solid black;
+            }
+
+        .calendar {
+            background-image: url(https://org590c75da.crm8.dynamics.com//WebResources/dt_calendar);
+            background-repeat: no-repeat;
+            padding-left: 40px;
+            display: block;
+            background-position: 4% 50%;
+        }
+
+            .calendar:hover {
+                background-image: url(https://org590c75da.crm8.dynamics.com//WebResources/dt_calendar);
+                background-repeat: no-repeat;
+                padding-left: 40px;
+                display: block;
+                background-position: 4% 50%;
+            }
+
+        .copy-icon {
+            background-image: url(https://org590c75da.crm8.dynamics.com//WebResources/new_copy_icon);
+            background-repeat: no-repeat;
+            padding-left: 35px;
+            display: block;
+            background-position: 6% 50%;
+        }
+
+            .copy-icon:hover {
+                background-image: url(https://org590c75da.crm8.dynamics.com//WebResources/new_copy_icon);
+                background-repeat: no-repeat;
+                padding-left: 35px;
+                display: block;
+                background-position: 6% 50%;
+            }
+    </style>
+
+    <!-- Start Calender Script -->
+    <script>
+        var displayCalendarStatus = false;
+        var $weekPicker = "";
+        var Current_Week_StartDate;
+
+        var Week_StartDate;
+        var Week_EndDate;
+
+        var Last_Week_StartDate;
+        var Last_Week_EndDate;
+
+        $(document).ready(function () {
+            $("#divDate").click(function () {
+                $(".week-picker").show();
+                displayCalendarStatus = true;
+                Month_Year_Click = true;
+            });
+            MakeCalendarNew();
+            ActiveWeek();
+        });
+
+        function MakeCalendarNew() {
+            $weekPicker = $('.week-picker');
+            updateWeekStartEnd();
+            updateDateText('start');
+
+            $weekPicker.datepicker({
+                firstDay: 1,
+                showOtherMonths: true,
+                selectOtherMonths: true,
+                onSelect: function (dateText, inst) {
+                    updateWeekStartEnd();
+                    updateDateText(inst);
+                    ActiveWeek();
+                },
+                beforeShowDay: function (date) {
+                    var cssClass = '';
+                    if (date >= Week_StartDate && date <= Week_EndDate) cssClass = 'ui-datepicker-current-day';
+                    return [true, cssClass];
+                },
+                onChangeMonthYear: function (year, month, inst) {
+                    debugger;
+                    displayCalendarStatus = false;
+                    Month_Year_Click = true;
+                    //selectCurrentWeek();
+                },
+                maxDate: 0
+            });
+        }
+
+        var Month_Year_Click = false;
+        $(document).click(function () {
+            //var container = $("#divCal");
+            //if (!container.is(event.target) && !container.has(event.target).length) {
+            //    if (Month_Year_Click == false) {
+            //        $(".week-picker").hide();
+            //    }
+            //}
+        });
+
+        function updateWeekStartEnd() {
+            var date = $weekPicker.datepicker('getDate') || new Date();
+            if (date.getDay() == 0) {
+                date.setDate(date.getDate() - 1);
+            }
+
+            if (NextPrevClick != "") {
+                var newdate = new Date(Week_StartDate);
+                if (NextPrevClick == "Prev") {
+                    newdate.setDate(newdate.getDate() - 7);
+                }
+                else if (NextPrevClick == "Next") {
+                    newdate.setDate(newdate.getDate() + 7);
+                }
+                date = newdate;
+                $('.week-picker').datepicker("setDate", newdate);
+            }
+
+            Week_StartDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
+            Week_EndDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 6);
+
+            Week_StartDate.setDate(Week_StartDate.getDate() + 1);
+            Week_EndDate.setDate(Week_EndDate.getDate() + 1);
+            if (Current_Week_StartDate == undefined) {
+                var tempDate = new Date(Week_StartDate);
+                Current_Week_StartDate = tempDate;
+            }
+            var tempStart = new Date(Week_StartDate);
+            tempStart.setDate(tempStart.getDate() - 7);
+
+            var tempEnd = new Date(Week_EndDate);
+            tempEnd.setDate(tempEnd.getDate() - 7);
+
+            Last_Week_StartDate = tempStart;
+            Last_Week_EndDate = tempEnd;
+        }
+
+        function updateDateText(inst) {
+            var dateFormat = inst != 'start' && inst.settings.dateFormat ? inst.settings.dateFormat : $.datepicker._defaults.dateFormat;
+            var Start = Week_StartDate.toLocaleString('default', { month: 'short' }) + " " + Week_StartDate.getDate();
+            var End = Week_EndDate.toLocaleString('default', { month: 'short' }) + " " + Week_EndDate.getDate();
+            $("#divDate")[0].innerText = Start + " - " + End;
+            if (displayCalendarStatus == false) {
+                displayCalendarStatus = true;
+            }
+            else {
+                $(".week-picker").hide();
+                displayCalendarStatus = false;
+                //RefillAllData();
+                Month_Year_Click = false;
+            }
+        }
+
+        function DisplayCopyOption() {
+
+            if (TimeEntryAry.length == 0) {
+                if (Current_Week_StartDate.getTime() === Week_StartDate.getTime()) {
+                    $("#divCopyLastWeek").show();
+                }
+                else {
+                    $("#divCopyLastWeek").hide();
+                }
+            }
+            else {
+                $("#divCopyLastWeek").hide();
+            }
+        }
+    </script>
+    <!-- End Calender Script -->
+    <!--Previous Next Week Events-->
+    <script>
+        var NextPrevClick = "";
+        $(document).ready(function () {
+            $("#divPrev").click(function () {
+                //parent.Xrm.Utility.showProgressIndicator("Processing...");
+
+                displayCalendarStatus = true;
+                NextPrevClick = "Prev";
+                MakeCalendarNew();
+                NextPrevClick = "";
+                ActiveWeek();
+
+                //parent.Xrm.Utility.closeProgressIndicator();
+            });
+            $("#divNext").click(function () {
+                //parent.Xrm.Utility.showProgressIndicator("Processing...");
+
+                displayCalendarStatus = true;
+                NextPrevClick = "Next";
+                MakeCalendarNew();
+                NextPrevClick = "";
+                ActiveWeek();
+
+                //parent.Xrm.Utility.closeProgressIndicator();
+            });
+        });
+
+        function ActiveWeek() {
+            window.setTimeout(function () {
+                var Dates = "";
+                var rowData = $(".ui-state-active").parents("tr").children();
+                $(".ui-state-active").removeClass("ui-state-active");
+                for (var i = 0; i < rowData.length; i++) {
+                    var ActiveClass = " ui-state-active";
+                    var GetClass = rowData[i].children[0].className;
+
+                    rowData[i].children[0].className = GetClass + ActiveClass;
+                }
+            }, 1);
+
+        }
+    </script>
+
+    <script>
+        function ShowModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
+        }
+
+        $(function () {
+
+            $("#btnSave").click(function () {
+                alert('test');
+            });
+        });
+
+
+        function isNumber(evt) {
+            var iKeyCode = (evt.which) ? evt.which : evt.keyCode
+            if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+                return false;
+
+            return true;
+        }
+
+        function formatTime(timeInput) {
+
+            intValidNum = timeInput.value;
+            if (intValidNum.length < 6) {
+                if (intValidNum < 24 && intValidNum.length == 2) {
+                    timeInput.value = timeInput.value + ":";
+                    return false;
+                }
+                if (intValidNum == 24 && intValidNum.length == 2) {
+                    timeInput.value = timeInput.value.length - 2 + "0:";
+                    return false;
+                }
+                if (intValidNum > 24 && intValidNum.length == 2) {
+                    timeInput.value = "";
+                    return false;
+                }
+
+                if (intValidNum.length == 5 && intValidNum.slice(-2) < 60) {
+                    timeInput.value = timeInput.value;
+                    return false;
+                }
+                if (intValidNum.length == 5 && intValidNum.slice(-2) > 60) {
+                    timeInput.value = timeInput.value.slice(0, 2);
+                    return false;
+                }
+                if (intValidNum.length == 5 && intValidNum.slice(-2) == 60) {
+                    timeInput.value = timeInput.value.slice(0, 2) + ":00:";
+                    return false;
+                }
+            }
+        }
+
+        function formatTime1() {
+            var timeInput = $("#txtTotalHour2").val();
+            intValidNum = timeInput;
+            if (intValidNum.length < 6) {
+                if (intValidNum < 24 && intValidNum.length == 2) {
+                    timeInput = timeInput + ":";
+                    return false;
+                }
+                if (intValidNum == 24 && intValidNum.length == 2) {
+                    timeInput = timeInput.length - 2 + "0:";
+                    return false;
+                }
+                if (intValidNum > 24 && intValidNum.length == 2) {
+                    timeInput = "";
+                    return false;
+                }
+
+                if (intValidNum.length == 5 && intValidNum.slice(-2) < 60) {
+                    timeInput = timeInput;
+                    return false;
+                }
+                if (intValidNum.length == 5 && intValidNum.slice(-2) > 60) {
+                    timeInput = timeInput.slice(0, 2);
+                    return false;
+                }
+                if (intValidNum.length == 5 && intValidNum.slice(-2) == 60) {
+                    timeInput = timeInput.slice(0, 2) + ":00:";
+                    return false;
+                }
+
+                $("#txtTotalHour2").val(timeInput);
+            }
+        }
+
+
+        function isNumericKeyPress(evt) {
+            var iKeyCode = (evt.which) ? evt.which : evt.keyCode
+            if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+                return false;
+
+            return true;
+        }
+
+        function handleKeyPress(event) {
+            if (isNumericKeyPress(event) == false) {
+                debugger;
+                //formatTime(event);
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
+
+    </script>
+    <script>
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+
+        function ConvertDecimalIntoHour() {
+            debugger;
+            var inputTime = $("#txtTotalHour").val();
+
+            var decimalTime = parseFloat(inputTime);
+            decimalTime = decimalTime * 60 * 60;
+            var hours = Math.floor((decimalTime / (60 * 60)));
+            decimalTime = decimalTime - (hours * 60 * 60);
+            var minutes = Math.floor((decimalTime / 60));
+            if (hours < 10) {
+                hours = "0" + hours;
+            }
+            if (minutes < 10) {
+                minutes = "0" + minutes;
+            }
+
+            var TimeInHourMinute = hours + ":" + minutes;
+
+            if (inputTime == "") {
+                $("#txtTotalHour").val('');
+            }
+            else {
+                $("#txtTotalHour").val(MakeInputTimeInFormat(inputTime));
+            }
+            alert(TimeInHourMinute);
+        }
+
+        function MakeInputTimeInFormat(inputTime) {
+            var FormatStr = "";
+            var str = inputTime.split('.');
+            FormatStr = str[0];
+            if (str[0] < 10) {
+                FormatStr = "0" + str[0];
+            }
+            FormatStr += ".";
+
+            if (str.length > 1) {
+                if (str[1] < 10) {
+                    FormatStr += str[1] + "0";
+                }
+                else {
+                    FormatStr += str[1];
+                }
+            }
+            else {
+                FormatStr += "00";
+            }
+
+            return FormatStr;
+        }
+    </script>
+</head>
+<body>
+    <form>
+        <div>
+            <input id="txtTotalHour" type="text" class="timeinput" onkeypress="return isNumberKey(event)" onchange="ConvertDecimalIntoHour()" maxlength="5" />
+        </div>
+        <br />
+        <div>
+            <input id="txtTotalHour2" type="text" class="timeinput" onblur="formatTime1()" onkeypress="return isNumber(event)" maxlength="5" />
+        </div>
+        <div>
+            <div id="divCal" style="float: right; padding-bottom: 9px; ">
+                <div style="display:flex;">
+                    <div id="divDate" class="calendar dateStyle"></div>
+                    <div id="divPrev" class="prev-next"><img src="https://org590c75da.crm8.dynamics.com//WebResources/new_left-icon" /></div>
+                    <div id="divNext" class="prev-next"><img src="https://org590c75da.crm8.dynamics.com//WebResources/new_right-icon" /></div>
+                </div>
+                <div class="week-picker" style="display: none; position: absolute; "></div>
+            </div>
+            <table id="divData" rules="all" class="tblstyle" cellpadding="4" cellspacing="4">
+            </table>
+            <div class="copy-icon dateStyle" style="display:none; width: 120px; margin-top:10px;" id="divCopyLastWeek">
+                Copy last week
+            </div>
+        </div>
+
+        <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2 id="lblHeading">Edit Time</h2>
+                </div>
+                <div class="modal-body">
+                    <table class="row">
+                        <tr>
+                            <td>
+                                <table style="line-height: 20px;">
+                                    <tr>
+                                        <td>
+                                            <span id="lblDate"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b><span id="lblProject"></span></b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span id="lblTask"></span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <hr />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table class="row">
+                                    <tr>
+                                        <td>
+                                            Hours
+                                        </td>
+                                        <td>
+                                            <input id="txtTotalWorkingHour" ruquired autocomplete="off" class="timeinput" type="text" placeholder="HH:MM" onkeypress="formatTime(this)" onchange="timechange()" MaxLength="5" oncopy="return false" onpaste="return false" oncut="return false" />
+                                            <!--<input id="txtTotalWorkingHour" autocomplete="off" type="text" class="timeinput" maxlength="5" onkeypress="formatTime(this)" onkeyup="return makeformating()" onchange="timechange()" />-->
+                                            <!--<input id="txtTotalWorkingHour" type="text" maxlength="5" class="timeinput" onkeypress="return onlyNumberKey(event)" onkeyup="return ManageHourTime()" />-->
+                                        </td>
+                                    </tr>
+                                    <tr style="display:none;">
+                                        <td>
+                                            <input id="txtTotalHour1" type="text" class="timeinput" disabled="disabled" style="font-weight:bold;" />
+                                        </td>
+                                        <td>
+                                            <select id="ddlStartHour" class="timeinput hours hourminuteddlstyle" onchange="CalculateTime1()"></select>
+                                            <span>:</span>
+                                            <select id="ddlStartMinute" class="timeinput minutes hourminuteddlstyle" onchange="CalculateTime1()"></select>
+                                            <span>-</span>
+                                            <select id="ddlEndHour" class="timeinput hours hourminuteddlstyle" onchange="CalculateTime1()"></select>
+                                            <span>:</span>
+                                            <select id="ddlEndMinute" class="timeinput minutes hourminuteddlstyle" onchange="CalculateTime1()"></select>
+                                            <!--<input id="txtTotalEndHour" type="time" class="timeinput" onchange="CalculateTime()" />-->
+                                        </td>
+                                    </tr>
+                                    <tr style="display:none;">
+                                        <td>
+                                            <input id="txtTotalHour" type="text" class="timeinput" disabled="disabled" style="font-weight:bold;" />
+                                        </td>
+                                        <td>
+                                            <input id="txtTotalStartHour" type="time" class="timeinput" onchange="CalculateTime()" />
+                                            <span>-</span>
+                                            <input id="txtTotalEndHour" type="time" class="timeinput" onchange="CalculateTime()" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top">
+                                            Description
+                                        </td>
+                                        <td valign="top">
+                                            <textarea id="txtDescription" rows="4" class="timeinput fullwidth"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top">
+                                            Tags
+                                        </td>
+                                        <td valign="top">
+                                            <select id="ddlTag" class="timeinput fullwidth"></select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top">
+                                            Billable
+                                        </td>
+                                        <td valign="top">
+                                            <label class="switch">
+                                                <input type="checkbox" id="cbBillable">
+                                                <span class="slider round"></span>
+                                            </label>
+                                            <b>Yes</b>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <div style="text-align:right;">
+                        <input type="button" value="Cancel" class="buttonstyle cancelbutton" />
+                        <input type="button" id="btnDelete" value="DELETE" class="buttonstyle buttonstyle-delete" />
+                        <input type="button" id="btnSave" value="SAVE" class="buttonstyle" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</body>
+</html>

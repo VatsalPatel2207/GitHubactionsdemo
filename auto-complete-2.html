@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    
+    <style type="text/css">
+        button, input, select, textarea {
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            padding: 5px 10px;
+        }
+
+            a:focus, a:active, input, input:hover, input:focus, input:active, textarea, textarea:hover, textarea:focus, textarea:active {
+                -moz-outline: none;
+                outline: none;
+            }
+
+        .ddl-data {
+            display: none;
+            position: absolute;
+            background: white;
+            margin-top: -37px;
+            z-index: 9;
+        }
+
+        .ddl-data-content {
+            max-height: 35vh;
+            overflow-y: auto;
+            background: white;
+            border: 1px solid #ccc;
+            box-shadow: 0px 2px 8px #ccc;
+        }
+
+        .ddlstyle {
+            width: 100%;
+            text-align: left;
+            word-break: break-all;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+            .ddlstyle::before {
+                content: "";
+                display: initial;
+                position: absolute;
+                right: 9px;
+                top: 20px;
+                vertical-align: middle;
+                border-top: 4px dashed;
+                border-top: 4px solid\9;
+                border-right: 4px solid transparent;
+                border-left: 4px solid transparent;
+            }
+
+        .textboxsearch {
+            width: 94%;
+            padding: 6px 10px;
+            font-size: 14px;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        }
+
+            .textboxsearch::before {
+                content: "";
+                background: url(../img/search.png) no-repeat 0 0;
+                width: 25px;
+                height: 25px;
+                background-repeat: no-repeat;
+                background-size: 25px 25px;
+                left: 6px;
+                position: absolute;
+            }
+
+            .textboxsearch input {
+                border: none;
+                margin-left: 0px;
+            }
+
+        .searchrow {
+            padding: 10px;
+            text-align: left;
+            line-height: 20px;
+        }
+
+            .searchrow:hover {
+                background: #d4d4d4;
+                cursor: pointer;
+            }
+    </style>
+    <script>
+        $(document).ready(function () {
+            GetCountry();
+        });
+        function GetCountry() {
+            debugger;
+            var countries = ["Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Anguilla", "Antigua & Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia & Herzegovina", "Botswana", "Brazil", "British Virgin Islands", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Cayman Islands", "Central Arfrican Republic", "Chad", "Chile", "China", "Colombia", "Congo", "Cook Islands", "Costa Rica", "Cote D Ivoire", "Croatia", "Cuba", "Curacao", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Falkland Islands", "Faroe Islands", "Fiji", "Finland", "France", "French Polynesia", "French West Indies", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guam", "Guatemala", "Guernsey", "Guinea", "Guinea Bissau", "Guyana", "Haiti", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Isle of Man", "Israel", "Italy", "Jamaica", "Japan", "Jersey", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Macau", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Montserrat", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauro", "Nepal", "Netherlands", "Netherlands Antilles", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Korea", "Norway", "Oman", "Pakistan", "Palau", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russia", "Rwanda", "Saint Pierre & Miquelon", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "St Kitts & Nevis", "St Lucia", "St Vincent", "Sudan", "Suriname", "Swaziland", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Timor L'Este", "Togo", "Tonga", "Trinidad & Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks & Caicos", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States of America", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Virgin Islands (US)", "Yemen", "Zambia", "Zimbabwe"];
+
+            var html = "";
+            for (var i = 0; i < countries.length; i++) {
+                html += "<div class='ddl__item searchrow' onclick='RowSelected(this); return false;'>";
+                html += "<input type='hidden' value='" + countries[i] + "' />";
+                html += "<div class='ddl__item-text'>" + countries[i] + "</div>";
+                html += "</div>";
+            }
+
+            $("#divcountrylist").html('');
+            $("#divcountrylist").html(html);
+        }
+
+        $(document).ready(function () {
+            $(".ddlstyle").click(function () {
+                $(this)[0].parentElement.children[1].style.display = 'block'
+                //$(this)[0].parentElement.children[1].children[0].focus();
+                $(this)[0].parentElement.children[1].children[0].children[0].focus();
+            });
+        });
+
+        function search_data(id) {
+            var s = id.value.toLowerCase();
+            $("#" + id.parentElement.parentElement.children[1].id + " .ddl__item").css({ "display": "none" });
+            $("#" + id.parentElement.parentElement.children[1].id + " .ddl__item").each(function () {
+                if ($(this).find(".ddl__item-text").html().toLowerCase().indexOf(s) >= 0) {
+                    $(this).css({ "display": "block" });
+                };
+            });
+        }
+
+        function RowSelected(data) {
+            debugger;
+            var data2 = data;
+            data.parentNode.parentNode.parentNode.children[0].innerText = data.children[1].innerText;
+            data.parentNode.parentNode.parentNode.children[0].value = data.children[0].value;
+            //data.parentElement.parentElement.children[0].children[0].value = "";
+            $("#" + data.parentElement.id + " .ddl__item").css({ "display": "block" });
+            data.parentNode.parentNode.style.display = 'none'
+        }
+
+        $(document).mouseup(function (e) {
+            var container = $(".ddl-data");
+            // if the target of the click isn't the container nor a descendant of the container
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                container.hide();
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="col-sm-12" style="width: 400px; margin-left: 29%; text-align: center;">
+        <button type="button" id="DDLYear" class="btn dropdown-toggle btn-default ddlstyle" style="background-color: #FFFFFF; color: #999999; border: 1px solid #99999963; padding: 11px 20px; margin: 10px 1px; font-size: 14px;">
+            Select data
+        </button>
+        <div class="ddl-data" style="margin-top: -54px; width: 400px;">
+            <div class="textboxsearch">
+                <input type="text" placeholder="Search" onkeyup="search_data(this)" style="width: 98%;">
+            </div>
+            <div id="divcountrylist" class="ddl-data-content">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

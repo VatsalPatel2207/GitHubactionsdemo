@@ -1,0 +1,1914 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>My Task</title>
+    <!--<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+            integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css" />
+    <style type="text/css">
+
+        .tblstyle {
+            width: 100%;
+            border: 1px solid black;
+        }
+
+        .header {
+            font-weight: bold;
+            background: #cccccc8f;
+            text-align: center;
+        }
+
+        .footer {
+            font-weight: bold;
+            text-align: center;
+            background: #cccccc8f;
+        }
+
+        .total-col {
+            width: 50px;
+            text-align: center;
+            background: #cccccc8f;
+            font-weight: bold;
+        }
+
+
+        .datarow {
+            color: black;
+        }
+
+            .datarow td:hover {
+                background: #ccc;
+                cursor: pointer;
+            }
+
+
+        .col-1 {
+            width: 100%;
+            float: left;
+        }
+
+        .col-2 {
+            width: 50%;
+            float: left;
+        }
+
+        .col-3 {
+            width: 33.33%;
+            float: left;
+        }
+
+        .col-4 {
+            width: 25%;
+            float: left;
+        }
+
+        .col-5 {
+            width: 20%;
+            float: left;
+        }
+
+        .row {
+            width: 100%;
+        }
+
+        .aligncenter {
+            text-align: center;
+        }
+
+        .inputstyle {
+            width: auto;
+            padding: 5px 10px;
+            line-height: 1.5;
+        }
+
+        .rowinput {
+            width: 94%;
+            padding: 5px 5px;
+            border: none;
+            outline: 0;
+            line-height: 1.5;
+        }
+
+        .timeinput {
+            width: 100px;
+            padding: 5px 10px;
+            font-weight: bold;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            outline: 0;
+            line-height: 1.5;
+        }
+
+        .selectstyle {
+            width: 100px;
+            padding: 5px 10px;
+            font-weight: bold;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            outline: 0;
+            line-height: 1.5;
+        }
+
+        .fullwidth {
+            width: 90%;
+            text-align: left;
+        }
+
+        .buttonstyle {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            background: #038fce;
+            color: white;
+        }
+
+            .buttonstyle:hover {
+                -webkit-filter: none;
+                filter: none;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            }
+
+        .buttonstyle-delete {
+            background: red;
+        }
+
+        .cancelbutton {
+            background: white;
+            color: #038fce;
+        }
+
+            .cancelbutton:hover {
+                text-decoration: underline;
+                -webkit-filter: none;
+                filter: none;
+                box-shadow: none;
+            }
+
+        .errorStyle {
+            border: 1px solid red;
+        }
+
+        .tasktime {
+            text-align: center;
+        }
+
+        .hourminuteddlstyle {
+            text-align: left;
+            padding: 8px 10px;
+            width: 60px;
+        }
+    </style>
+    <style type="text/css">
+        h2 {
+            margin: 6px 0px;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 15px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            position: relative;
+            background-color: #fefefe;
+            margin: auto;
+            padding: 0;
+            border: 1px solid #888;
+            width: 50%;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+            -webkit-animation-name: animatetop;
+            -webkit-animation-duration: 0.4s;
+            animation-name: animatetop;
+            animation-duration: 0.4s
+        }
+
+        /* Add Animation */
+        @-webkit-keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        @keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        /* The Close Button */
+        .close {
+            color: black;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            margin-top: 4px;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+        .modal-header {
+            padding: 2px 16px;
+            border-bottom: 1px solid grey;
+            /* background-color: grey;
+            color: white;*/
+        }
+
+        .modal-body {
+            padding: 2px 16px;
+        }
+
+        .modal-footer {
+            padding: 12px 16px;
+            border-top: 1px solid grey;
+        }
+
+        .deleterow .close {
+            float: none;
+        }
+
+        .deleterow {
+            text-align: center;
+        }
+    </style>
+    <style type="text/css">
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 20px;
+        }
+
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 14px;
+                width: 14px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                -webkit-transition: .4s;
+                transition: .4s;
+            }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+            .slider.round:before {
+                border-radius: 50%;
+            }
+    </style>
+
+    <style type="text/css">
+        .dateStyle {
+            border: 1px solid #ccc;
+            padding: 5px 15px;
+            width: 150px;
+            line-height: 30px;
+            font-weight: bold;
+            font-size: 18px;
+            text-align: left;
+            border-radius: 4px;
+        }
+
+            .dateStyle:hover {
+                background: #ccc;
+                cursor: pointer;
+                color: black;
+                border: 1px solid black;
+            }
+
+        .prev-next {
+            border: 1px solid #ccc;
+            padding: 5px 15px;
+            width: 10px;
+            line-height: 30px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 4px;
+        }
+
+            .prev-next:hover {
+                background: #ccc;
+                cursor: pointer;
+                color: black;
+                border: 1px solid black;
+            }
+
+        .calendar {
+            background-image: url(https://org590c75da.crm8.dynamics.com//WebResources/dt_calendar);
+            background-repeat: no-repeat;
+            padding-left: 40px;
+            display: block;
+            background-position: 4% 50%;
+        }
+
+            .calendar:hover {
+                background-image: url(https://org590c75da.crm8.dynamics.com//WebResources/dt_calendar);
+                background-repeat: no-repeat;
+                padding-left: 40px;
+                display: block;
+                background-position: 4% 50%;
+            }
+
+        .copy-icon {
+            background-image: url(https://org590c75da.crm8.dynamics.com//WebResources/new_copy_icon);
+            background-repeat: no-repeat;
+            padding-left: 35px;
+            display: block;
+            background-position: 6% 50%;
+        }
+
+            .copy-icon:hover {
+                background-image: url(https://org590c75da.crm8.dynamics.com//WebResources/new_copy_icon);
+                background-repeat: no-repeat;
+                padding-left: 35px;
+                display: block;
+                background-position: 6% 50%;
+            }
+
+        .not-active {
+            pointer-events: none;
+            cursor: default;
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+
+    <!-- Start Calender Script -->
+    <script>
+        var displayCalendarStatus = false;
+        var $weekPicker = "";
+        var Current_Week_StartDate;
+
+        var CurrentDate = new Date();
+
+        var Week_StartDate;
+        var Week_EndDate;
+
+        var Last_Week_StartDate;
+        var Last_Week_EndDate;
+
+        $(document).ready(function () {
+            $("#divDate").click(function () {
+                $(".week-picker").show();
+                displayCalendarStatus = true;
+            });
+            MakeCalendarNew();
+            ActiveWeek();
+        });
+
+        function MakeCalendarNew() {
+            $weekPicker = $('.week-picker');
+            updateWeekStartEnd();
+            updateDateText('start');
+
+            $weekPicker.datepicker({
+                firstDay: 1,
+                showOtherMonths: true,
+                selectOtherMonths: true,
+                onSelect: function (dateText, inst) {
+                    updateWeekStartEnd();
+                    updateDateText(inst);
+                    ActiveWeek();
+                },
+                beforeShowDay: function (date) {
+                    var cssClass = '';
+                    if (date >= Week_StartDate && date <= Week_EndDate) cssClass = 'ui-datepicker-current-day';
+                    return [true, cssClass];
+                },
+                onChangeMonthYear: function (year, month, inst) {
+                    //displayCalendarStatus = false;
+                },
+                maxDate: 0
+            });
+        }
+
+        //$(document).click(function () {
+        //    var container = $("#divCal");
+        //    if (!container.is(event.target) && !container.has(event.target).length) {
+        //        $(".week-picker").hide();
+        //    }
+        //});
+
+        function updateWeekStartEnd() {
+            var date = $weekPicker.datepicker('getDate') || new Date();
+            if (date.getDay() == 0) {
+                date.setDate(date.getDate() - 1);
+            }
+
+            if (NextPrevClick != "") {
+                var newdate = new Date(Week_StartDate);
+                if (NextPrevClick == "Prev") {
+                    newdate.setDate(newdate.getDate() - 7);
+                }
+                else if (NextPrevClick == "Next") {
+                    newdate.setDate(newdate.getDate() + 7);
+                }
+                date = newdate;
+                $('.week-picker').datepicker("setDate", newdate);
+            }
+
+            Week_StartDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
+            Week_EndDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 6);
+
+            Week_StartDate.setDate(Week_StartDate.getDate() + 1);
+            Week_EndDate.setDate(Week_EndDate.getDate() + 1);
+            if (Current_Week_StartDate == undefined) {
+                var tempDate = new Date(Week_StartDate);
+                Current_Week_StartDate = tempDate;
+            }
+            var tempStart = new Date(Week_StartDate);
+            tempStart.setDate(tempStart.getDate() - 7);
+
+            var tempEnd = new Date(Week_EndDate);
+            tempEnd.setDate(tempEnd.getDate() - 7);
+
+            Last_Week_StartDate = tempStart;
+            Last_Week_EndDate = tempEnd;
+        }
+
+        function updateDateText(inst) {
+            var dateFormat = inst != 'start' && inst.settings.dateFormat ? inst.settings.dateFormat : $.datepicker._defaults.dateFormat;
+            var Start = Week_StartDate.toLocaleString('default', { month: 'short' }) + " " + Week_StartDate.getDate();
+            var End = Week_EndDate.toLocaleString('default', { month: 'short' }) + " " + Week_EndDate.getDate();
+            $("#divDate")[0].innerText = Start + " - " + End;
+            if (displayCalendarStatus == false) {
+                displayCalendarStatus = true;
+            }
+            else {
+                $(".week-picker").hide();
+                displayCalendarStatus = false;
+                RefillAllData();
+            }
+        }
+
+        function DisplayCopyOption() {
+
+            if (TimeEntryAry.length == 0) {
+                if (Current_Week_StartDate.getTime() === Week_StartDate.getTime()) {
+                    $("#divCopyLastWeek").show();
+                }
+                else {
+                    $("#divCopyLastWeek").hide();
+                }
+            }
+            else {
+                $("#divCopyLastWeek").hide();
+            }
+            parent.Xrm.Utility.closeProgressIndicator();
+        }
+    </script>
+    <!-- End Calender Script -->
+
+    <script>
+        var OwnerID = "";
+        var RowIndex = 0;
+        var TimeEntryAry = [];
+        var ProjectTaskAry = [];
+        var DistProjectTaskData = [];
+        var DateAry = [];
+        var ProjectAry = [];
+        var TaskAry = [];
+        var TagAry = [];
+
+        var selectedDate = "";
+        var selectedProjectID = "";
+        var selectedTaskGUID = "";
+        var TotalWorkingMinutes = "";
+
+        var TimeEntryID = "";
+
+        $(document).ready(function () {
+            parent.Xrm.Utility.showProgressIndicator("Processing...");
+
+            OwnerID = parent.Xrm.Page.context.getUserId().replace("{", "").replace("}", "");
+            GetTaskProjectData();
+            LoadHeader();
+            GetTagData();
+        });
+
+        function GetTaskProjectData() {
+            debugger;
+            var ExpandData = "dt_project_name($select = dt_project_name,dt_projectid)";
+            parent.Xrm.WebApi.retrieveMultipleRecords("dt_task", "?$select=dt_task_id,dt_taskid" + "&$expand=" + ExpandData).then(
+                function success(result) {
+                    var Data = result.entities;
+                    for (var i = 0; i < Data.length; i++) {
+
+                        if (Data[i].dt_project_name != null) {
+                            var ProjectName = Data[i].dt_project_name.dt_project_name;
+                            var ProjectID = Data[i].dt_project_name.dt_projectid;
+                            var Task_User_Defined_ID = Data[i].dt_task_id;
+                            var TaskGUID = Data[i].dt_taskid;
+
+                            if (Task_User_Defined_ID != null) {
+                                item = {};
+                                item["ProjectName"] = ProjectName;
+                                item["ProjectID"] = ProjectID;
+                                item["Task_User_Defined_ID"] = Task_User_Defined_ID;
+                                item["TaskGUID"] = TaskGUID;
+                                item["UseStatus"] = false;
+                                ProjectTaskAry.push(item);
+                            }
+                        }
+                    }
+
+                    GetTimeSheetDataByOwnerID();
+                },
+                function (error) {
+                    //console.log(error.message);
+                    ErrorAlert(error);
+                }
+            );
+        }
+
+        function GetTimeSheetDataByOwnerID() {
+            debugger;
+            var Columns = "dt_time_entry_id,dt_description,dt_changeable,dt_start_time,dt_end_time,dt_hours,dt_time_entry_date";
+            var ExpandData = "dt_project_name($select=dt_project_name),dt_task($select=dt_task_id),dt_tag($select=dt_name)";
+
+            var TempStartDate = Week_StartDate;
+            var TempEndDate = Week_EndDate;
+
+            var SDate = TempStartDate;
+            SDate = SDate.getUTCFullYear() + "-" + NumberInFormat((SDate.getMonth() + 1)) + "-" + NumberInFormat(SDate.getDate());
+
+            var EDate = TempEndDate;
+            //EDate = new Date(EDate.setDate(EDate.getDate()));
+            EDate = EDate.getUTCFullYear() + "-" + NumberInFormat((EDate.getMonth() + 1)) + "-" + NumberInFormat(EDate.getDate());
+
+            var MoreFilter = " and dt_time_entry_date ge " + SDate + " and dt_time_entry_date le " + EDate + "";
+
+            //MoreFilter = "";
+            parent.Xrm.WebApi.retrieveMultipleRecords("dt_timeentry", "?$select=" + Columns + "&$expand=" + ExpandData + "&$filter=_createdby_value eq " + OwnerID + MoreFilter).then(
+                function success(result) {
+                    debugger;
+                    var Data = result.entities;
+                    for (var i = 0; i < Data.length; i++) {
+                        var StartDate = new Date(Data[i].dt_start_time);
+                        var EndDate = new Date(Data[i].dt_end_time);
+
+                        var EntryDate = new Date(Data[i].dt_time_entry_date);
+
+                        var TaskDate = EntryDate.getDate() + "/" + (EntryDate.getMonth() + 1) + "/" + EntryDate.getUTCFullYear();
+
+                        var StartTime = NumberInFormat(StartDate.getHours()) + ":" + NumberInFormat(StartDate.getMinutes());
+
+                        var EndTime = NumberInFormat(EndDate.getHours()) + ":" + NumberInFormat(EndDate.getMinutes());
+
+                        var TotalMinutes = Data[i].dt_hours;
+
+                        var hours = (TotalMinutes / 60);
+                        var rhours = Math.floor(hours);
+                        var minutes = (hours - rhours) * 60;
+                        var rminutes = Math.round(minutes);
+
+                        var TotalHoursMinutes = NumberInFormat(rhours) + ":" + NumberInFormat(rminutes);
+
+                        item = {};
+                        item["dt_timeentryid"] = Data[i].dt_timeentryid;
+                        item["dt_description"] = Data[i].dt_description;
+
+                        item["dt_project_name"] = Data[i].dt_project_name.dt_project_name;
+                        item["dt_projectid"] = Data[i].dt_project_name.dt_projectid;
+
+                        item["Task_User_Defined_ID"] = Data[i].dt_task.dt_task_id;
+                        item["dt_TaskGUID"] = Data[i].dt_task.dt_taskid;
+
+                        var TagID = "0";
+                        var TagName = "";
+                        if (Data[i].dt_tag != null) {
+                            TagID = Data[i].dt_tag.dt_tagid;
+                            TagName = Data[i].dt_tag.dt_name;
+                        }
+                        item["TagID"] = TagID;
+                        item["TagName"] = TagName;
+
+                        item["TotalHoursMinutes"] = TotalHoursMinutes;
+                        item["TaskDate"] = TaskDate;
+                        item["StartTime"] = StartTime;
+                        item["EndTime"] = EndTime;
+
+                        item["dt_changeable"] = Data[i].dt_changeable;
+
+                        TimeEntryAry.push(item);
+                    }
+
+                    UpdateProjectTaskUseStatus();
+                    CreateDataRowAndFill();
+                    DisplayCopyOption();
+                },
+                function (error) {
+                    ErrorAlert(error);
+                    //console.log(error.message);
+                }
+            );
+        }
+
+        function UpdateProjectTaskUseStatus() {
+            //-- First, get distinct Project & Task data
+            for (var i = 0; i < ProjectTaskAry.length; i++) {
+                ProjectTaskAry[i]["UseStatus"] = false;
+            }
+
+            debugger;
+
+            //-- Second, get distinct Project & Task data
+            DistinctProjectAndTask();
+
+            //-- Third, check which project & task is used then update status in "ProjectTaskAry"
+            for (var i = 0; i < DistProjectTaskData.length; i++) {
+                var Task_User_Defined_ID = DistProjectTaskData[i].Task_User_Defined_ID;
+                for (var d = 0; d < ProjectTaskAry.length; d++) {
+                    var MasterTask_User_Defined_ID = ProjectTaskAry[d].Task_User_Defined_ID;
+                    if (MasterTask_User_Defined_ID == Task_User_Defined_ID) {
+                        ProjectTaskAry[d].UseStatus = true;
+                    }
+                }
+            }
+
+            //-- Fourth, get un-used Project & Task data
+            var unusedData = ProjectTaskAry.filter(v => v.UseStatus === false);
+            ProjectAry = [];
+            TaskAry = [];
+            if (unusedData.length > 0) {
+                //-- Fifth, distinct Project
+                var tempAry = [];
+                unusedData.forEach(function (da) {
+                    if (tempAry.indexOf(da["ProjectID"]) === -1) {
+                        tempAry.push(da["ProjectID"]);
+
+                        item = {};
+                        item["dt_project_name"] = da["ProjectName"];
+                        item["dt_projectid"] = da["ProjectID"];
+
+                        ProjectAry.push(item);
+                    }
+                });
+
+                //-- Sixth, distinct Task
+                for (var i = 0; i < unusedData.length; i++) {
+                    item = {};
+                    item["Task_User_Defined_ID"] = unusedData[i]["Task_User_Defined_ID"];
+                    item["dt_TaskGUID"] = unusedData[i]["TaskGUID"];
+                    item["ProjectID"] = unusedData[i]["ProjectID"];
+
+                    TaskAry.push(item);
+                }
+            }
+        }
+
+        function NumberInFormat(num) {
+            if (parseInt(num) < 10) {
+                num = "0" + num;
+            }
+            return num;
+        }
+
+        function DistinctProjectAndTask() {
+            debugger;
+            var tempAry = [];
+            TimeEntryAry.forEach(function (riskLevel) {
+                if (tempAry.indexOf(riskLevel["dt_TaskGUID"]) === -1) {
+                    tempAry.push(riskLevel["dt_TaskGUID"]);
+
+                    item = {};
+                    item["ProjectName"] = riskLevel["dt_project_name"];
+                    item["Task_User_Defined_ID"] = riskLevel["Task_User_Defined_ID"];
+
+                    DistProjectTaskData.push(item);
+                }
+            });
+
+        }
+
+        $(function () {
+            $("#divData").on("focus", "tr td input.project-data", function () {
+                AutoCompleteProject($(this)[0].id);
+            });
+
+            $("#divData").on("focus", "tr td input.task-data", function () {
+                AutoCompleteTask($(this)[0].id);
+            });
+        });
+
+        function GetProjectData() {
+            debugger;
+            parent.Xrm.WebApi.retrieveMultipleRecords("dt_project", "?$select=dt_project_name,dt_projectid").then(
+                function success(result) {
+                    ProjectAry = result.entities;
+                },
+                function (error) {
+                    ErrorAlert(error);
+                    //console.log(error.message);
+                }
+            );
+        }
+
+        function GetTaskData() {
+            parent.Xrm.WebApi.retrieveMultipleRecords("dt_task", "?$select=dt_description,dt_taskid,_dt_project_name_value").then(
+                function success(result) {
+                    TaskAry = result.entities;
+                },
+                function (error) {
+                    ErrorAlert(error);
+                    //console.log(error.message);
+                }
+            );
+        }
+
+        function AutoCompleteProject(txt) {
+            var data = [];
+            for (var i = 0; i < ProjectAry.length; i++) {
+                data.push(ProjectAry[i].dt_project_name);
+            }
+
+            $("#" + txt).autocomplete({
+                source: data,
+                minLength: 0,
+                select: function (event, ui) {
+                    debugger;
+                    var ProjectName = ui.item.label;
+                    var RowData = $(this).parents("tr").find(".task-data");
+                    if ($(this)[0].dataset.value != ProjectName) {
+                        RowData[0].value = "";
+                        RowData[0].dataset.value = "";
+                    }
+                }
+            }).focus(function () {
+                $(this).autocomplete("search");
+            });
+        }
+
+        function ProjectChangeEvent(data) {
+            debugger;
+            if (data.dataset.value == "") {
+                var RowData = $("#" + data.id).parents("tr").find(".task-data");
+                RowData[0].value = "";
+                RowData[0].dataset.value = "";
+            }
+            var ProjectName = data.value;
+            if (CheckProjectNameValid(ProjectName) == false) {
+                data.value = data.dataset.value;
+            }
+        }
+
+        function CheckProjectNameValid(ProjectName) {
+            var Flag = true;
+            if (ProjectAry.filter(v => v.dt_project_name === ProjectName).length == 0) {
+                Flag = false;
+            }
+            return Flag;
+        }
+
+        var TaskSelectEventStatus = false;
+        function AutoCompleteTask(txt) {
+            var Test = "";
+            var ProjectName = $("#" + txt).parent().parent().find(".project-data").val();
+            if (ProjectName != "") {
+                selectedProjectID = ProjectAry.filter(v => v.dt_project_name === ProjectName)[0].dt_projectid;
+
+                var FilterTaskAry = TaskAry.filter(v => v.ProjectID === selectedProjectID);
+
+                var data = [];
+                for (var i = 0; i < FilterTaskAry.length; i++) {
+                    data.push(FilterTaskAry[i].Task_User_Defined_ID);
+                }
+                $("#" + txt).autocomplete({
+                    source: data,
+                    minLength: 0,
+                    select: function (event, ui) {
+                        debugger;
+                        var Task_User_Defined_ID = ui.item.label;
+                        var RowData = $(this).parents("tr");
+                        TaskSelectEventStatus = true;
+                        UpdateWeekProjectTask(Task_User_Defined_ID, RowData);
+                    }
+                }).focus(function () {
+                    $(this).autocomplete("search");
+                });
+            }
+        }
+
+        function TaskChangeEvent(data) {
+            debugger;
+            var Task_User_Defined_ID = data.value;
+            if (CheckTaskNameValid(Task_User_Defined_ID) == false) {
+                data.value = data.dataset.value;
+            }
+
+            var RowData = $("#" + data.id).parents("tr");
+            if (data.value != "") {
+                if (data.value != data.dataset.value) {
+                    if (TaskSelectEventStatus == false) {
+                        UpdateWeekProjectTask(data.value, RowData);
+                    }
+                }
+            }
+        }
+
+        function CheckTaskNameValid(Task_User_Defined_ID) {
+            var Flag = true;
+            if (TaskAry.filter(v => v.Task_User_Defined_ID === Task_User_Defined_ID).length == 0) {
+                Flag = false;
+            }
+            return Flag;
+        }
+
+        function GetTagData() {
+            debugger;
+            parent.Xrm.WebApi.retrieveMultipleRecords("dt_tag", "?$select=dt_name,dt_tagid").then(
+                function success(result) {
+                    TagAry = result.entities;
+
+                    var $dropdown = $("#ddlTag");
+                    $dropdown.append($("<option />").val("0").text("Select Tag"));
+                    $.each(TagAry, function () {
+                        $dropdown.append($("<option />").val(this.dt_tagid).text(this.dt_name));
+                    });
+                },
+                function (error) {
+                    debugger;
+                    ErrorAlert(error);
+                    //console.log(error.message);
+                }
+            );
+        }
+
+        function LoadHeader() {
+            var TempAry = [];
+            let TempStartDate = new Date(Week_StartDate);
+            var MondayDate = new Date(TempStartDate);
+            TempAry.push(MondayDate);
+            var TuesdayDate = new Date(TempStartDate.setDate(TempStartDate.getDate() + 1));
+            TempAry.push(TuesdayDate);
+            var WebnesdayDate = new Date(TempStartDate.setDate(TempStartDate.getDate() + 1));
+            TempAry.push(WebnesdayDate);
+            var ThursdayDate = new Date(TempStartDate.setDate(TempStartDate.getDate() + 1));
+            TempAry.push(ThursdayDate);
+            var FridayDate = new Date(TempStartDate.setDate(TempStartDate.getDate() + 1));
+            TempAry.push(FridayDate);
+            var SaturdayDate = new Date(TempStartDate.setDate(TempStartDate.getDate() + 1));
+            TempAry.push(SaturdayDate);
+            var SundayDate = new Date(TempStartDate.setDate(TempStartDate.getDate() + 1));
+            TempAry.push(SundayDate);
+
+            var Html = "<tr class='header'>";
+            Html += "<td>Project</td><td>Task</td>";
+            for (var i = 0; i < TempAry.length; i++) {
+
+                var NewDate = TempAry[i];
+
+                var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+                var day = NewDate.getDate();
+                var dayName = NewDate.toString().split(' ')[0];
+                var month = NewDate.getMonth() + 1;
+                var year = NewDate.getFullYear()
+
+                Html += "<td>" + dayName + " " + month + "/" + day + "</td>";
+
+                //-- Add Date In Array
+                var item = {}
+                item["fulldate"] = NewDate;
+                item["date"] = day + "/" + month + "/" + year;
+                item["dayName"] = dayName;
+                DateAry.push(item);
+            }
+
+            //-- Blank Column (For Total Hour) --//
+            Html += "<td class='total-col'>Total</td>";
+
+            //-- Blank Column (For Delete) --//
+            Html += "<td style='width:30px'></td>";
+
+            Html += "</tr>";
+            $("#divData").html(Html);
+        }
+
+        function CreateDataRowAndFill() {
+            debugger;
+            var CDate = new Date(CurrentDate.getFullYear() + "-" + (CurrentDate.getMonth() + 1) + "-" + CurrentDate.getDate());
+
+            var Html = "";
+            for (var i = 0; i < DistProjectTaskData.length; i++) {
+                var ProjectName = DistProjectTaskData[i].ProjectName;
+                var Task_User_Defined_ID = DistProjectTaskData[i].Task_User_Defined_ID;
+
+                Html = "";
+                Html += "<tr class='datarow'>";
+                Html += "<td><input autocomplete='off' id='txtProject" + RowIndex + "' class='rowinput project-data' onchange='ProjectChangeEvent(this);' placeholder='Enter Project' value='" + ProjectName + "' data-value='" + ProjectName + "' /></td>";
+                Html += "<td><input autocomplete='off' id='txtTask" + RowIndex + "' class='rowinput task-data' onchange='TaskChangeEvent(this);' placeholder='Enter Task' value='" + Task_User_Defined_ID + "' data-value='" + Task_User_Defined_ID + "' /></td>";
+
+                if (DateAry.length > 0) {
+                    for (var d = 0; d < DateAry.length; d++) {
+                        var TaskDate = DateAry[d].date;
+                        var NewDate = new Date(TaskDate.split('/')[2] + "-" + TaskDate.split('/')[1] + "-" + TaskDate.split('/')[0]);
+                        var filterdata = TimeEntryAry.filter(v => v.dt_project_name === ProjectName
+                            && v.Task_User_Defined_ID === Task_User_Defined_ID
+                            && v.TaskDate === TaskDate
+                        );
+
+                        if (filterdata.length > 0) {
+                            var TotalHoursMinutes = filterdata[0].TotalHoursMinutes;
+                            Html += "<td class='tasktime' data-value='" + filterdata[0].dt_timeentryid + "'>" + TotalHoursMinutes + "</td>";
+                        }
+                        else {
+
+                            if (NewDate <= CDate) {
+                                Html += "<td class='tasktime' data-value=''>+</td>";
+                            }
+                            else {
+                                Html += "<td class='tasktime not-active' data-value=''></td>";
+                            }
+                        }
+                    }
+                    Html += "<td class='total-col'></td>";
+                    Html += "<td class='deleterow'><span class='close'>&times;</span></td>";
+                }
+                else {
+                    for (var i = 0; i < 7; i++) {
+                        var TaskDate = DateAry[i].date;
+                        var NewDate = new Date(TaskDate.split('/')[2] + "-" + TaskDate.split('/')[1] + "-" + TaskDate.split('/')[0]);
+                        if (NewDate <= CDate) {
+                            Html += "<td class='tasktime' data-value=''>+</td>";
+                        }
+                        else {
+                            Html += "<td class='tasktime not-active' data-value=''></td>";
+                        }
+                    }
+                    Html += "<td></td>";
+                    Html += "<td></td>";
+                }
+
+                Html += "</tr >";
+
+                $("#divData").append(Html);
+                RowIndex++;
+            }
+
+            Html = "";
+            Html += "<tr class='datarow'>";
+            Html += "<td><input autocomplete='off' id='txtProject" + RowIndex + "' class='rowinput project-data' onchange='ProjectChangeEvent(this);' placeholder='Enter Project' data-value='' /></td>";
+            Html += "<td><input autocomplete='off' id='txtTask" + RowIndex + "' class='rowinput task-data' onchange='TaskChangeEvent(this);' placeholder='Enter Task' data-value='' /></td>";
+            for (var i = 0; i < 7; i++) {
+                var TaskDate = DateAry[i].date;
+                var NewDate = new Date(TaskDate.split('/')[2] + "-" + TaskDate.split('/')[1] + "-" + TaskDate.split('/')[0]);
+                if (NewDate <= CDate) {
+                    Html += "<td class='tasktime' data-value=''>+</td>";
+                }
+                else {
+                    Html += "<td class='tasktime not-active' data-value=''></td>";
+                }
+            }
+            Html += "<td class='total-col'>00:00</td>";
+            Html += "<td></td>";
+            Html += "</tr >";
+
+            $("#divData").append(Html);
+            LoadFooter();
+            CalculateTotal()
+            RowIndex++;
+        }
+
+        function LoadFooter() {
+
+            var Html = "<tr class='footer'>";
+            Html += "<td colspan='2'>Total</td>";
+            for (var i = 0; i < 7; i++) {
+                Html += "<td class='footer-data'>00:00</td>";
+            }
+
+            //-- Blank Column --//
+            Html += "<td class='total-working-time'></td>";
+
+            //-- Blank Column --//
+            Html += "<td style='width:30px'></td>";
+
+            Html += "</tr>";
+            $("#divData").append(Html);
+        }
+
+        function CalculateTotal() {
+            debugger;
+            var TimeAry = [];
+            var Data = $(".datarow");
+            for (var i = 0; i < Data.length - 1; i++) {
+                var TotalMinutes = 0;
+
+                item = {};
+                for (var c = 2; c < 9; c++) {
+                    var columnValue = Data[i].children[c].innerText;
+                    var WorkingMinutes = 0;
+                    if (columnValue != "+" && columnValue != "") {
+                        var Hours = columnValue.split(':')[0];
+                        var Minutes = columnValue.split(':')[1];
+
+                        Hours = Hours * 60;
+                        Minutes = Minutes == "" ? "0" : Minutes;
+                        var WorkingMinutes = parseInt(Hours) + parseInt(Minutes);
+
+                        TotalMinutes += WorkingMinutes;
+                    }
+                    item[c - 2] = WorkingMinutes;
+                }
+
+                TimeAry.push(item);
+                //TimeAry[c-2] =
+
+                Data[i].children[9].innerText = CalculateTotalHourMinutes(TotalMinutes);
+            }
+
+            //-- Update Footer Row Data
+            var WeekTotalMinutes = 0;
+            var FooterData = $(".footer .footer-data");
+            for (var col = 0; col < 7; col++) {
+                var TotalMinutes = 0;
+                for (var r = 0; r < TimeAry.length; r++) {
+                    var Minutes = TimeAry[r][col];
+                    TotalMinutes += Minutes;
+                }
+                WeekTotalMinutes += TotalMinutes;
+                FooterData[col].innerText = CalculateTotalHourMinutes(TotalMinutes);
+            }
+
+            $(".total-working-time")[0].innerText = CalculateTotalHourMinutes(WeekTotalMinutes);
+        }
+
+        function CalculateTotalHourMinutes(TotalMinutes) {
+            var HourMinutes = "00:00";
+            if (TotalMinutes != "0") {
+                var hours = (TotalMinutes / 60);
+                var rhours = Math.floor(hours);
+                var minutes = (hours - rhours) * 60;
+                var rminutes = Math.round(minutes);
+                HourMinutes = NumberInFormat(rhours) + ":" + NumberInFormat(rminutes);
+            }
+
+            return HourMinutes;
+        }
+
+        function AddNewRow() {
+            var Html = "";
+            Html += "<tr class='datarow'>";
+            Html += "<td><input id='txtProject" + RowIndex + "' class='rowinput project-data' onchange='ProjectChangeEvent(this);' placeholder='Enter project' /></td>";
+            Html += "<td><input id='txtTask" + RowIndex + "' class='rowinput task-data' onchange='TaskChangeEvent(this);' placeholder='Enter task' /></td>";
+            for (var i = 0; i < 7; i++) {
+                Html += "<td class='tasktime' data-value=''>+</td>";
+            }
+            Html += "</tr >";
+
+            $("#divData").append(Html);
+            RowIndex++;
+        }
+
+        var CellIndex = 0;
+        $(function () {
+            $("#btnAddMore").click(function () {
+                AddNewRow();
+            });
+
+            $("#divData").on("click", "tr td.tasktime", function () {
+                debugger;
+                var RowData = $(this).parents("tr");
+
+                var ProjectName = RowData[0].childNodes[0].childNodes[0].value;
+                var Task_User_Defined_ID = RowData[0].childNodes[1].childNodes[0].value;
+                if (ProjectName != "" && Task_User_Defined_ID != "") {
+                    ClearSelection();
+                    TimeEntryID = $(this).attr("data-value");
+
+                    selectedProjectID = ProjectTaskAry.filter(v => v.ProjectName === ProjectName)[0].ProjectID;
+                    selectedTaskGUID = ProjectTaskAry.filter(v => v.Task_User_Defined_ID === Task_User_Defined_ID)[0].TaskGUID;
+
+                    $("#lblProject")[0].innerText = ProjectName;
+                    $("#lblTask")[0].innerText = Task_User_Defined_ID;
+
+                    CellIndex = $(this)[0].cellIndex;
+                    selectedDate = DateAry[CellIndex - 2].fulldate;
+                    var selectedData = DateAry[CellIndex - 2];
+
+                    $("#lblDate")[0].innerText = selectedData.dayName + ", " + selectedData.date;
+
+                    $("#lblHeading")[0].innerText = "Add Time";
+                    if (TimeEntryID != "") {
+                        $("#lblHeading")[0].innerText = "Edit Time";
+                        var filterdata = TimeEntryAry.filter(v => v.dt_timeentryid === TimeEntryID);
+                        TotalWorkingMinutes = filterdata[0].TotalHoursMinutes;
+                        $("#txtTotalWorkingHour").val(filterdata[0].TotalHoursMinutes);
+                        $("#txtDescription").val(filterdata[0].dt_description);
+
+                        $("#ddlTag").val(filterdata[0].TagID);
+                        $("#cbBillable")[0].checked = filterdata[0].dt_changeable;
+                        $("#btnDelete").show();
+                    }
+
+                    ShowModal();
+                }
+            });
+
+            $(".close").click(function () {
+                CloseModal();
+            });
+
+            $(".cancelbutton").click(function () {
+                CloseModal();
+            });
+
+            $("#btnSave").click(function () {
+                SaveData();
+            });
+        });
+
+        function ClearSelection() {
+            TimeEntryID = "";
+            selectedProjectID = "";
+            selectedTaskGUID = "";
+            $("#txtTotalWorkingHour").val('');
+            $("#txtTotalStartHour").val('');
+            $("#txtTotalEndHour").val('');
+            $("#txtTotalHour").val('');
+            $("#txtDescription").val('');
+            $("#ddlTag").val('0');
+            $("#cbBillable")[0].checked = false;
+            $("#btnDelete").hide();
+        }
+
+        function ShowModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
+        }
+
+        function CloseModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+
+        function CalculateTime() {
+            debugger;
+            var StartHour = $("#txtTotalStartHour").val();
+            var EndHour = $("#txtTotalEndHour").val();
+
+            if (StartHour != "" && EndHour != "") {
+                StartHour = StartHour + ":00";
+                EndHour = EndHour + ":00";
+
+                var date1 = new Date("1999-1-1 " + StartHour); // Thu Sep 16 2010 13:30:58
+                var date2 = new Date("1999-1-1 " + EndHour); // Tue Aug 18 2015 14:20:48
+
+                // checking with date is more recent to get the other out of it and store the result in dateDifference variable
+                var dateDifference;
+                dateDifference = date2 - date1;
+                TotalWorkingMinutes = dateDifference / (1000) / 60;
+                var hours = dateDifference / (1000 * 3600);
+                var rhours = Math.floor(hours);
+                var minutes = (hours - rhours) * 60;
+                var rminutes = Math.round(minutes);
+                var Test = rhours + " hour(s) and " + rminutes + " minute(s).";
+                $("#txtTotalHour").val(rhours + ":" + rminutes);
+            }
+        }
+
+    </script>
+
+    <!-- Save, Update, Delete, Update Row (Project & Task), Refill Functions -->
+    <script>
+        $(document).ready(function () {
+            $("#btnDelete").click(function () {
+                var confirmStrings = { confirmButtonLabel: "Yes", text: "Are you sure wants to delete this data?", title: "Confirmation Alert !" };
+                var confirmOptions = { height: 150, width: 400 };
+                parent.Xrm.Navigation.openConfirmDialog(confirmStrings, confirmOptions).then(
+                    function (success) {
+                        if (success.confirmed) {
+                            DeleteTimeEntry();
+                        }
+                    });
+            });
+
+            $("#divData").on("click", "tr .deleterow", function () {
+                debugger;
+                var RowData = $(this).parents("tr").find(".tasktime");
+                var confirmStrings = { confirmButtonLabel: "Yes", text: "Are you sure wants to delete this data?", title: "Confirmation Alert !" };
+                var confirmOptions = { height: 150, width: 400 };
+                parent.Xrm.Navigation.openConfirmDialog(confirmStrings, confirmOptions).then(
+                    function (success) {
+                        if (success.confirmed) {
+                            DeleteMultipleTimeEntry(RowData);
+                        }
+                    });
+            });
+        });
+
+        function SaveData() {
+            debugger;
+            var Flag = true;
+            //var StartHour = "00:00";
+            //var EndHour = "00:00";
+
+            $("#txtTotalWorkingHour").css("border", "1px solid #ccc");
+
+            var TotalWorkingHour = $("#txtTotalWorkingHour").val();
+            if (TotalWorkingHour == "") {
+                Flag = false;
+                $("#txtTotalWorkingHour").css("border", "1px solid red");
+            }
+            else {
+                if (TotalWorkingHour.length < 5) {
+                    Flag = false;
+                    $("#txtTotalWorkingHour").css("border", "1px solid red");
+                }
+                else {
+                    TotalWorkingHour = TotalWorkingHour.split(':');
+
+                    if (TotalWorkingHour.length > 1) {
+                        if (isNaN(TotalWorkingHour[0])) {
+                            Flag = false;
+                            $("#txtTotalWorkingHour").css("border", "1px solid red");
+                        }
+                        if (isNaN(TotalWorkingHour[1])) {
+                            Flag = false;
+                            $("#txtTotalWorkingHour").css("border", "1px solid red");
+                        }
+
+                        if (Flag == true) {
+                            var MinutesByHour = TotalWorkingHour[0] * 60;
+                            var Minutes = 0;
+                            if (TotalWorkingHour.length > 1) {
+                                Minutes = TotalWorkingHour[1] == "" ? "0" : TotalWorkingHour[1];
+                            }
+                            TotalWorkingMinutes = parseInt(MinutesByHour) + parseInt(Minutes);
+
+                            if (parseFloat(TotalWorkingMinutes) == 0) {
+                                Flag = false;
+                                $("#txtTotalWorkingHour").css("border", "1px solid red");
+                            }
+                            else {
+                                if (parseFloat(TotalWorkingMinutes) > 1440) {
+                                    Flag = false;
+                                    $("#txtTotalWorkingHour").css("border", "1px solid red");
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        Flag = false;
+                        $("#txtTotalWorkingHour").css("border", "1px solid red");
+                    }
+                }
+            }
+
+            if (Flag == true) {
+                parent.Xrm.Utility.showProgressIndicator("Processing...");
+                var Description = $("#txtDescription").val();
+                var Tag = $("#ddlTag").val();
+                if (Tag == "0") {
+                    Tag = null;
+                }
+                else {
+                    Tag = "/dt_tags(" + Tag + ")";
+                }
+                var BillableStatus = $("#cbBillable")[0].checked;
+
+                var EntryDate = selectedDate.getUTCFullYear() + "-" + NumberInFormat((selectedDate.getMonth() + 1)) + "-" + NumberInFormat(selectedDate.getDate());
+
+                //var TaskDate = new Date(EntryDate);
+
+                //var datetest = new Date();
+
+                var data =
+                {
+                    //"dt_time_entry_id": Description,
+                    "dt_description": Description,
+                    "dt_changeable": BillableStatus,
+                    "dt_start_time": null,
+                    "dt_end_time": null,
+                    "dt_time_entry_date": EntryDate,
+                    "dt_hours": TotalWorkingMinutes,
+                    "dt_project_name@odata.bind": "/dt_projects(" + selectedProjectID + ")",
+                    "dt_task@odata.bind": "/dt_tasks(" + selectedTaskGUID + ")",
+                    "dt_tag@odata.bind": Tag
+                }
+
+                if (TimeEntryID == "") {
+                    //-- Insert Record
+                    parent.Xrm.WebApi.online.createRecord("dt_timeentry", data).then(
+                        function success(result) {
+                            debugger;
+                            var recordId = result.id;
+                            //$(".datarow")[0].children[CellIndex].innerText = $("#txtTotalHour").val();
+                            RefillAllData();
+                            CloseModal();
+                            ClearSelection();
+                        },
+                        function (error) {
+                            debugger;
+                            ErrorAlert(error);
+                        }
+                    );
+                }
+                else {
+                    //-- Update Record
+                    TimeEntryID = TimeEntryID.replace("\"", "");
+
+                    parent.Xrm.WebApi.online.updateRecord("dt_timeentry", TimeEntryID, data).then(
+                        function success(result) {
+                            debugger;
+                            var recordId = result.id;
+                            RefillAllData();
+                            CloseModal();
+                            ClearSelection();
+                        },
+                        function (error) {
+                            debugger;
+                            ErrorAlert(error);
+                        }
+                    );
+                }
+            }
+        }
+
+        function RefillAllData() {
+            $("#divData").html('');
+            RowIndex = 0;
+            DateAry = [];
+            TimeEntryAry = [];
+            DistProjectTaskData = [];
+            LoadHeader();
+            GetTimeSheetDataByOwnerID();
+        }
+
+        function DeleteTimeEntry() {
+            parent.Xrm.Utility.showProgressIndicator("Processing...");
+
+            TimeEntryID = TimeEntryID.replace("\"", "");
+            parent.Xrm.WebApi.online.deleteRecord("dt_timeentry", TimeEntryID).then(
+                function success(result) {
+                    debugger;
+                    var recordId = result.id;
+                    RefillAllData();
+                    CloseModal();
+                    ClearSelection();
+                    parent.Xrm.Utility.closeProgressIndicator();
+                },
+                function (error) {
+                    debugger;
+                    ErrorAlert(error);
+                }
+            );
+        }
+
+        function DeleteMultipleTimeEntry(data) {
+            debugger;
+            var DeleteRowData = [];
+            for (var i = 0; i < data.length; i++) {
+                var data_value = data[i].dataset.value;
+                if (data_value != "") {
+                    DeleteRowData.push(data_value);
+                }
+            }
+
+            if (DeleteRowData.length > 0) {
+                parent.Xrm.Utility.showProgressIndicator("Processing...");
+                var deleteCount = 0;
+                for (var i = 0; i < DeleteRowData.length; i++) {
+                    var NewTimeEntryID = DeleteRowData[i].replace("\"", "");
+                    parent.Xrm.WebApi.online.deleteRecord("dt_timeentry", NewTimeEntryID).then(
+                        function success(result) {
+                            debugger;
+                            deleteCount++;
+
+                            var recordId = result.id;
+                            if (deleteCount == DeleteRowData.length) {
+                                RefillAllData();
+                                ClearSelection();
+                                parent.Xrm.Utility.closeProgressIndicator();
+                            }
+                        },
+                        function (error) {
+                            debugger;
+                            ErrorAlert(error);
+                        }
+                    );
+                }
+            }
+        }
+
+        function UpdateWeekProjectTask(Task_User_Defined_ID, data) {
+            debugger;
+            var ProjectName = data.find(".project-data")[0].value;
+            var RowTaskData = data.find(".tasktime");
+            var UpdateRowData = [];
+            for (var i = 0; i < RowTaskData.length; i++) {
+                var data_value = RowTaskData[i].dataset.value;
+                if (data_value != "") {
+                    UpdateRowData.push(data_value);
+                }
+            }
+
+            if (UpdateRowData.length) {
+                parent.Xrm.Utility.showProgressIndicator("Processing...");
+
+                selectedProjectID = ProjectTaskAry.filter(v => v.ProjectName === ProjectName)[0].ProjectID;
+                selectedTaskGUID = ProjectTaskAry.filter(v => v.Task_User_Defined_ID === Task_User_Defined_ID)[0].TaskGUID;
+
+                var updateAry = [];
+                for (var i = 0; i < UpdateRowData.length; i++) {
+                    var NewTimeEntryID = UpdateRowData[i].replace("\"", "");
+                    var data =
+                    {
+                        "dt_project_name@odata.bind": "/dt_projects(" + selectedProjectID + ")",
+                        "dt_task@odata.bind": "/dt_tasks(" + selectedTaskGUID + ")"
+                    }
+
+                    var updateRequest = {
+                        etn: "dt_timeentry",
+                        id: NewTimeEntryID,
+                        payload: data,
+                        getMetadata: function () { return { boundParameter: null, parameterTypes: {}, operationType: 2, operationName: "Update" }; }
+                    };
+
+                    updateAry.push(updateRequest);
+                }
+
+                parent.Xrm.WebApi.online.executeMultiple(updateAry).then(
+                    function success(response) {
+                        debugger;
+                        if (response.ok) {
+                            RefillAllData();
+                            ClearSelection();
+                            TaskSelectEventStatus = false;
+                            parent.Xrm.Utility.closeProgressIndicator();
+                        }
+                    }
+                ).catch(function (error) {
+                    debugger;
+                    TaskSelectEventStatus = false;
+                    ErrorAlert(error);
+                });
+            }
+        }
+    </script>
+
+    <!--Get & Copy Previous Week Data-->
+    <script>
+        $(document).ready(function () {
+            $("#divCopyLastWeek").click(function () {
+                var confirmStrings = { confirmButtonLabel: "Yes", text: "Are you sure wants to copy last week project & task data?", title: "Confirmation Alert !" };
+                var confirmOptions = { height: 150, width: 400 };
+                parent.Xrm.Navigation.openConfirmDialog(confirmStrings, confirmOptions).then(
+                    function (success) {
+                        if (success.confirmed) {
+                            GetPreviousWeekData();
+                        }
+                    });
+            });
+        });
+
+
+        function GetPreviousWeekData() {
+            debugger;
+            var ExpandData = "dt_project_name($select=dt_project_name),dt_task($select=dt_task_id)";
+
+            var TempStartDate = Last_Week_StartDate;
+            var TempEndDate = Last_Week_EndDate;
+
+            var SDate = TempStartDate;
+            SDate = SDate.getUTCFullYear() + "-" + NumberInFormat((SDate.getMonth() + 1)) + "-" + NumberInFormat(SDate.getDate());
+
+            var EDate = TempEndDate;
+            EDate = EDate.getUTCFullYear() + "-" + NumberInFormat((EDate.getMonth() + 1)) + "-" + NumberInFormat(EDate.getDate());
+
+            var MoreFilter = " and dt_time_entry_date ge " + SDate + " and dt_time_entry_date le " + EDate + "";
+
+            parent.Xrm.WebApi.retrieveMultipleRecords("dt_timeentry", "?$expand=" + ExpandData + "&$filter=_createdby_value eq " + OwnerID + MoreFilter).then(
+                function success(result) {
+                    debugger;
+                    var Data = result.entities;
+                    if (Data.length > 0) {
+                        $("#divData").html('');
+                        RowIndex = 0;
+                        DateAry = [];
+                        TimeEntryAry = [];
+                        DistProjectTaskData = [];
+                        LoadHeader();
+
+                        for (var i = 0; i < Data.length; i++) {
+                            item = {};
+
+                            item["dt_project_name"] = Data[i].dt_project_name.dt_project_name;
+                            item["dt_projectid"] = Data[i].dt_project_name.dt_projectid;
+
+                            item["Task_User_Defined_ID"] = Data[i].dt_task.dt_task_id;
+                            item["dt_TaskGUID"] = Data[i].dt_task.dt_taskid;
+
+                            TimeEntryAry.push(item);
+                        }
+                        DistinctProjectAndTask();
+                        CreateDataRowAndFill();
+                        DisplayCopyOption();
+                    }
+                    else {
+                        SimpleAlert("There have no data in the last week");
+                    }
+
+                },
+                function (error) {
+                    debugger;
+                    ErrorAlert(error);
+                    //console.log(error.message);
+                }
+            );
+        }
+    </script>
+
+    <!--Previous Next Week Events-->
+    <script>
+        var NextPrevClick = "";
+        $(document).ready(function () {
+            $("#divPrev").click(function () {
+                parent.Xrm.Utility.showProgressIndicator("Processing...");
+
+                displayCalendarStatus = true;
+                NextPrevClick = "Prev";
+                MakeCalendarNew();
+                NextPrevClick = "";
+                ActiveWeek();
+
+                parent.Xrm.Utility.closeProgressIndicator();
+            });
+            $("#divNext").click(function () {
+                parent.Xrm.Utility.showProgressIndicator("Processing...");
+
+                displayCalendarStatus = true;
+                NextPrevClick = "Next";
+                MakeCalendarNew();
+                NextPrevClick = "";
+                ActiveWeek();
+
+                parent.Xrm.Utility.closeProgressIndicator();
+            });
+        });
+
+        function ActiveWeek() {
+            window.setTimeout(function () {
+                debugger;
+                var Dates = "";
+                var rowData = $(".ui-state-active").parents("tr").children();
+                $(".ui-state-active").removeClass("ui-state-active");
+                for (var i = 0; i < rowData.length; i++) {
+                    var ActiveClass = " ui-state-active";
+                    var GetClass = rowData[i].children[0].className;
+
+                    rowData[i].children[0].className = GetClass + ActiveClass;
+                }
+            }, 1);
+
+        }
+    </script>
+
+    <!--Alert Messages-->
+    <script>
+        function SimpleAlert(alertmessage) {
+            parent.Xrm.Utility.closeProgressIndicator();
+            var alertStrings = { confirmButtonLabel: "Ok", text: alertmessage, title: "Alert !" };
+            var alertOptions = { height: 100, width: 230 };
+            parent.Xrm.Navigation.openAlertDialog(alertStrings, alertOptions).then(
+                function (success) {
+                    //console.log("Alert dialog closed");
+                },
+                function (error) {
+                    //ErrorAlert(error);
+                    console.log(error.message);
+                }
+            );
+        }
+
+        function ConfirmationAlert(alertmessage) {
+            // "Are you sure wants to copy last week project & task data?"
+            var confirmStrings = { confirmButtonLabel: "Yes", text: alertmessage, title: "Confirmation Alert !" };
+            var confirmOptions = { height: 150, width: 400 };
+            parent.Xrm.Navigation.openConfirmDialog(confirmStrings, confirmOptions).then(
+                function (success) {
+                    if (success.confirmed) {
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                });
+        }
+
+        function ErrorAlert(errorData) {
+            parent.Xrm.Utility.closeProgressIndicator();
+            parent.Xrm.Navigation.openErrorDialog({ errorCode: errorData.errorCode, details: errorData.ram, message: errorData.message }).then(
+                function (success) {
+                    console.log(success);
+                },
+                function (error) {
+                    console.log(error);
+                });
+        }
+    </script>
+
+    <script>
+        function isNumber(evt) {
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }
+
+        function makeformating() {
+            $('#txtTotalWorkingHour').keyup(
+                function () {
+                    var value = document.getElementById('txtTotalWorkingHour').value;
+                    if (value.length == 2) {
+                        document.getElementById('txtTotalWorkingHour').value = value + ":";
+                    }
+                });
+        }
+
+        function timechange() {
+            debugger;
+            var value = document.getElementById('txtTotalWorkingHour').value;
+            if (value != "") {
+                var NewValue = value;
+
+                if (value.length == 1) {
+                    NewValue = NumberInFormat(value) + ":00";
+                }
+                if (value.length == 2) {
+                    NewValue = NumberInFormat(value) + ":00";
+                }
+                if (value.length == 3) {
+                    NewValue = value.split(':')[0] + ":" + "00";
+                }
+                if (value.length == 4) {
+                    NewValue = value.split(':')[0] + ":" + NumberInFormat(value.split(':')[1]);
+                }
+                if (value.length == 5) {
+                    NewValue = value;
+                }
+
+                document.getElementById('txtTotalWorkingHour').value = NewValue;
+            }
+            else {
+                document.getElementById('txtTotalWorkingHour').value = "";
+            }
+        }
+
+        function formatTime(timeInput) {
+
+            intValidNum = timeInput.value;
+            if (intValidNum.length < 6) {
+                if (intValidNum < 24 && intValidNum.length == 2) {
+                    timeInput.value = timeInput.value + ":";
+                    return false;
+                }
+                if (intValidNum == 24 && intValidNum.length == 2) {
+                    timeInput.value = timeInput.value.length - 2 + "0:";
+                    return false;
+                }
+                if (intValidNum > 24 && intValidNum.length == 2) {
+                    timeInput.value = "";
+                    return false;
+                }
+
+                if (intValidNum.length == 5 && intValidNum.slice(-2) < 60) {
+                    timeInput.value = timeInput.value;
+                    return false;
+                }
+                if (intValidNum.length == 5 && intValidNum.slice(-2) > 60) {
+                    timeInput.value = timeInput.value.slice(0, 2);
+                    return false;
+                }
+                if (intValidNum.length == 5 && intValidNum.slice(-2) == 60) {
+                    timeInput.value = timeInput.value.slice(0, 2) + ":00:";
+                    return false;
+                }
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <div>
+        <div id="divCal" style="float: right; padding-bottom: 9px; ">
+            <div style="display:flex;">
+                <div id="divDate" class="calendar dateStyle"></div>
+                <div id="divPrev" class="prev-next"><img src="https://org590c75da.crm8.dynamics.com//WebResources/new_left-icon" /></div>
+                <div id="divNext" class="prev-next"><img src="https://org590c75da.crm8.dynamics.com//WebResources/new_right-icon" /></div>
+            </div>
+            <div class="week-picker" style="display: none; position: absolute; "></div>
+        </div>
+        <table id="divData" rules="all" class="tblstyle" cellpadding="4" cellspacing="4">
+        </table>
+        <div class="copy-icon dateStyle" style="display:none; width: 120px; margin-top:10px;" id="divCopyLastWeek">
+            Copy last week
+        </div>
+        <!--<br />
+        <input id="txtTotalHour2" type="time" class="timeinput" />-->
+        <!--<br />
+        <input id="txtStartTime" type="text" placeholder="HH:MM" onkeypress="formatTime(this)" onchange="timechange()" MaxLength="5" oncopy="return false" onpaste="return false" oncut="return false" />-->
+
+    </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2 id="lblHeading">Edit Time</h2>
+            </div>
+            <div class="modal-body">
+                <table class="row">
+                    <tr>
+                        <td>
+                            <table style="line-height: 20px;">
+                                <tr>
+                                    <td>
+                                        <span id="lblDate"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b><span id="lblProject"></span></b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span id="lblTask"></span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <hr />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table class="row">
+                                <tr>
+                                    <td>
+                                        Hours
+                                    </td>
+                                    <td>
+                                        <input id="txtTotalWorkingHour" ruquired autocomplete="off" class="timeinput" type="text" placeholder="HH:MM" onkeypress="formatTime(this)" onchange="timechange()" MaxLength="5" oncopy="return false" onpaste="return false" oncut="return false" />
+                                        <!--<input id="txtTotalWorkingHour" autocomplete="off" type="text" class="timeinput" maxlength="5" onkeypress="formatTime(this)" onkeyup="return makeformating()" onchange="timechange()" />-->
+                                        <!--<input id="txtTotalWorkingHour" type="text" maxlength="5" class="timeinput" onkeypress="return onlyNumberKey(event)" onkeyup="return ManageHourTime()" />-->
+                                    </td>
+                                </tr>
+                                <tr style="display:none;">
+                                    <td>
+                                        <input id="txtTotalHour1" type="text" class="timeinput" disabled="disabled" style="font-weight:bold;" />
+                                    </td>
+                                    <td>
+                                        <select id="ddlStartHour" class="timeinput hours hourminuteddlstyle" onchange="CalculateTime1()"></select>
+                                        <span>:</span>
+                                        <select id="ddlStartMinute" class="timeinput minutes hourminuteddlstyle" onchange="CalculateTime1()"></select>
+                                        <span>-</span>
+                                        <select id="ddlEndHour" class="timeinput hours hourminuteddlstyle" onchange="CalculateTime1()"></select>
+                                        <span>:</span>
+                                        <select id="ddlEndMinute" class="timeinput minutes hourminuteddlstyle" onchange="CalculateTime1()"></select>
+                                        <!--<input id="txtTotalEndHour" type="time" class="timeinput" onchange="CalculateTime()" />-->
+                                    </td>
+                                </tr>
+                                <tr style="display:none;">
+                                    <td>
+                                        <input id="txtTotalHour" type="text" class="timeinput" disabled="disabled" style="font-weight:bold;" />
+                                    </td>
+                                    <td>
+                                        <input id="txtTotalStartHour" type="time" class="timeinput" onchange="CalculateTime()" />
+                                        <span>-</span>
+                                        <input id="txtTotalEndHour" type="time" class="timeinput" onchange="CalculateTime()" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top">
+                                        Description
+                                    </td>
+                                    <td valign="top">
+                                        <textarea id="txtDescription" rows="4" class="timeinput fullwidth"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top">
+                                        Tags
+                                    </td>
+                                    <td valign="top">
+                                        <select id="ddlTag" class="timeinput fullwidth"></select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top">
+                                        Billable
+                                    </td>
+                                    <td valign="top">
+                                        <label class="switch">
+                                            <input type="checkbox" id="cbBillable">
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <b>Yes</b>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <div style="text-align:right;">
+                    <input type="button" value="Cancel" class="buttonstyle cancelbutton" />
+                    <input type="button" id="btnDelete" value="DELETE" class="buttonstyle buttonstyle-delete" />
+                    <input type="button" id="btnSave" value="SAVE" class="buttonstyle" />
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

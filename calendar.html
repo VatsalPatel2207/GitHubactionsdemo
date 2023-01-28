@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+            integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css" />
+    <script>
+        var displayCalendarStatus = false;
+        var $weekPicker = "";
+        var Week_StartDate;
+        var Week_EndDate;
+        var DateAry = [];
+
+        $(document).ready(function () {
+            $("#divDate").click(function () {
+                $(".week-picker").show();
+                displayCalendarStatus = true;
+            });
+
+            MakeCalendar();
+            LoadHeader();
+        });
+
+        $(document).click(function () {
+            var container = $("#divCal");
+            if (!container.is(event.target) && !container.has(event.target).length) {
+                $(".week-picker").hide();
+            }
+        });
+
+        function MakeCalendar() {
+            var selectCurrentWeek = function () {
+                window.setTimeout(function () {
+                    $('.week-picker').find('.ui-datepicker-current-day a').addClass('ui-state-active')
+                }, 1);
+
+                if (displayCalendarStatus == false) {
+                    displayCalendarStatus = true;
+                }
+                else {
+                    $(".week-picker").hide();
+                    displayCalendarStatus = false;
+                }
+            }
+            $weekPicker = $('.week-picker');
+            updateWeekStartEnd();
+            updateDateText('start');
+
+            $weekPicker.datepicker({
+                firstDay: 1,
+                showOtherMonths: true,
+                selectOtherMonths: true,
+                onSelect: function (dateText, inst) {
+                    updateWeekStartEnd();
+                    updateDateText(inst);
+                    selectCurrentWeek();
+                },
+                beforeShowDay: function (date) {
+                    var cssClass = '';
+                    if (date >= Week_StartDate && date <= Week_EndDate) cssClass = 'ui-datepicker-current-day';
+                    return [true, cssClass];
+                },
+                onChangeMonthYear: function (year, month, inst) {
+                    displayCalendarStatus = false;
+                    selectCurrentWeek();
+                }
+            });
+
+            selectCurrentWeek();
+
+            $('.week-picker .ui-datepicker-calendar tr').on('mousemove', function () {
+                $(this).find('td a').addClass('ui-state-hover');
+            });
+            $('.week-picker .ui-datepicker-calendar tr').on('mouseleave', function () {
+                $(this).find('td a').removeClass('ui-state-hover');
+            });
+        }
+
+        function updateWeekStartEnd() {
+            var date = $weekPicker.datepicker('getDate') || new Date();
+            if (date.getDay() == 0) {
+                date.setDate(date.getDate() - 1);
+            }
+
+            debugger;
+            Week_StartDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
+            Week_EndDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 6);
+
+            Week_StartDate.setDate(Week_StartDate.getDate() + 1);
+            Week_EndDate.setDate(Week_EndDate.getDate() + 1);
+        }
+
+        function updateDateText(inst) {
+            var dateFormat = inst != 'start' && inst.settings.dateFormat ? inst.settings.dateFormat : $.datepicker._defaults.dateFormat;
+            var Start = Week_StartDate.toLocaleString('default', { month: 'short' }) + " " + Week_StartDate.getDate();
+            var End = Week_EndDate.toLocaleString('default', { month: 'short' }) + " " + Week_EndDate.getDate();
+            $("#divDate")[0].innerText = Start + " - " + End;
+        }
+
+
+        
+
+
+    </script>
+    <style type="text/css">
+        .dateStyle {
+            border: 1px solid #ccc;
+            padding: 5px 15px;
+            width: 250px;
+            line-height: 30px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+            .dateStyle:hover {
+                background: #ccc;
+                cursor: pointer;
+            }
+    </style>
+</head>
+<body>
+    <div id="divCal" style="position:absolute;">
+        <div id="divDate" class="dateStyle"></div>
+        <div class="week-picker" style="display:none;"></div>
+    </div>
+</body>
+</html>

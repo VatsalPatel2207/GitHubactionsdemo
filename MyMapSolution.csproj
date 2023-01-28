@@ -1,0 +1,277 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9AF8A281-C983-4BDE-B3A1-0C5FB7E27DE0}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MyMapSolution</RootNamespace>
+    <AssemblyName>MyMapSolution</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="auto-complete-2.html" />
+    <Content Include="autocomplete.html" />
+    <Content Include="bing-map.aspx" />
+    <Content Include="calculate-distance-new.aspx" />
+    <Content Include="calculate-distance.aspx" />
+    <Content Include="calendar.html" />
+    <Content Include="change-route-color.aspx" />
+    <Content Include="direction.aspx" />
+    <Content Include="email-preference.html" />
+    <Content Include="final-map-2.aspx" />
+    <Content Include="Final-Map.aspx" />
+    <Content Include="GetLoAndLa.aspx" />
+    <Content Include="location-tooltip.aspx" />
+    <Content Include="make-direction-2.aspx" />
+    <Content Include="make-direction-current-location-2.aspx" />
+    <Content Include="make-direction-current-location.aspx" />
+    <Content Include="make-direction.aspx" />
+    <Content Include="map-tile-style.aspx" />
+    <Content Include="mytask-backup.html" />
+    <Content Include="mytask-new.html" />
+    <Content Include="mytask-test.html" />
+    <Content Include="mytask.html" />
+    <Content Include="remove-one-point.aspx" />
+    <Content Include="styled-route-points.aspx" />
+    <Content Include="test.html" />
+    <Content Include="testing-click.html" />
+    <Content Include="testing-map.aspx" />
+    <Content Include="testingnew.aspx" />
+    <Content Include="Web.config" />
+    <Content Include="working-map.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="bing-map.aspx.cs">
+      <DependentUpon>bing-map.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="bing-map.aspx.designer.cs">
+      <DependentUpon>bing-map.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="calculate-distance-new.aspx.cs">
+      <DependentUpon>calculate-distance-new.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="calculate-distance-new.aspx.designer.cs">
+      <DependentUpon>calculate-distance-new.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="calculate-distance.aspx.cs">
+      <DependentUpon>calculate-distance.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="calculate-distance.aspx.designer.cs">
+      <DependentUpon>calculate-distance.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="change-route-color.aspx.cs">
+      <DependentUpon>change-route-color.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="change-route-color.aspx.designer.cs">
+      <DependentUpon>change-route-color.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="direction.aspx.cs">
+      <DependentUpon>direction.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="direction.aspx.designer.cs">
+      <DependentUpon>direction.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="final-map-2.aspx.cs">
+      <DependentUpon>final-map-2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="final-map-2.aspx.designer.cs">
+      <DependentUpon>final-map-2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Final-Map.aspx.cs">
+      <DependentUpon>Final-Map.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Final-Map.aspx.designer.cs">
+      <DependentUpon>Final-Map.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GetLoAndLa.aspx.cs">
+      <DependentUpon>GetLoAndLa.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GetLoAndLa.aspx.designer.cs">
+      <DependentUpon>GetLoAndLa.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="location-tooltip.aspx.cs">
+      <DependentUpon>location-tooltip.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="location-tooltip.aspx.designer.cs">
+      <DependentUpon>location-tooltip.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="make-direction-2.aspx.cs">
+      <DependentUpon>make-direction-2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="make-direction-2.aspx.designer.cs">
+      <DependentUpon>make-direction-2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="make-direction-current-location-2.aspx.cs">
+      <DependentUpon>make-direction-current-location-2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="make-direction-current-location-2.aspx.designer.cs">
+      <DependentUpon>make-direction-current-location-2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="make-direction-current-location.aspx.cs">
+      <DependentUpon>make-direction-current-location.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="make-direction-current-location.aspx.designer.cs">
+      <DependentUpon>make-direction-current-location.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="make-direction.aspx.cs">
+      <DependentUpon>make-direction.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="make-direction.aspx.designer.cs">
+      <DependentUpon>make-direction.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="map-tile-style.aspx.cs">
+      <DependentUpon>map-tile-style.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="map-tile-style.aspx.designer.cs">
+      <DependentUpon>map-tile-style.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="remove-one-point.aspx.cs">
+      <DependentUpon>remove-one-point.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="remove-one-point.aspx.designer.cs">
+      <DependentUpon>remove-one-point.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="styled-route-points.aspx.cs">
+      <DependentUpon>styled-route-points.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="styled-route-points.aspx.designer.cs">
+      <DependentUpon>styled-route-points.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="testing-map.aspx.cs">
+      <DependentUpon>testing-map.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="testing-map.aspx.designer.cs">
+      <DependentUpon>testing-map.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="testingnew.aspx.cs">
+      <DependentUpon>testingnew.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="testingnew.aspx.designer.cs">
+      <DependentUpon>testingnew.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>60411</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:60411/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
