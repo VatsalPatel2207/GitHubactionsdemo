@@ -5,14 +5,14 @@ name: .NET
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "readme-edits" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "readme-edits" ]
 
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: Ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
